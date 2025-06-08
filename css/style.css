@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Oswald:400,600|Sacramento|Source+Sans+Pro:300&subset=latin-ext");
-
 /* Variables */
 /* Global */
 *,
@@ -28,7 +27,6 @@ body {
   font-family: "Oswald", sans-serif;
   font-weight: 600;
 }
-
 .section-title span {
   text-transform: none;
   font-weight: 400;
@@ -73,7 +71,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 .list .active {
   font-weight: bold;
 }
@@ -91,7 +88,6 @@ body {
 .post {
   display: none;
 }
-
 .post.active {
   display: block;
 }
@@ -103,7 +99,6 @@ body {
 .post-tags {
   display: flex;
 }
-
 .post-tags p {
   margin: 0 10px 0 0;
 }
