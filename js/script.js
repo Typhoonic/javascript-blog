@@ -3,7 +3,8 @@
 const optArticleSelector = '.posts article',
     optArticleActiveSelector = '.posts article.active',
     optTitleActiveSelector = '.titles a.active',
-    optTitleListSelector = '.titles a';
+    optTitlesSelector = '.titles a',
+    optTitleListSelector = '.titles';
 
 function removeActiveLinks() {
     const activeLinks = document.querySelectorAll(optTitleActiveSelector);
@@ -51,7 +52,7 @@ function clearLinks(links) {
 
 function fillLinkArticleTitle(linkHTML) {
     console.log(linkHTML)
-    const listTitles = document.querySelector('.titles')
+    const listTitles = document.querySelector(optTitleListSelector)
     listTitles.innerHTML = listTitles.innerHTML + linkHTML;
 }
 
@@ -68,7 +69,7 @@ function generateTitleLinks(event) {
 
 generateTitleLinks();
 
-const links = document.querySelectorAll(optTitleListSelector);
+const links = document.querySelectorAll(optTitlesSelector);
 
 for (let link of links) {
     link.addEventListener('click', titleClickHandler);
