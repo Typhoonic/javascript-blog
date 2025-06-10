@@ -34,7 +34,6 @@ function titleClickHandler(event) {
     addActiveToClickedLink(clickedElement);
 
     const hrefAttribute = clickedElement.getAttribute('href');
-    console.log('test: ' + hrefAttribute)
     addActiveToClickedArticle(hrefAttribute);
 }
 
