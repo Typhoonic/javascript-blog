@@ -51,7 +51,6 @@ function clearLinks(links) {
 }
 
 function fillLinkArticleTitle(linkHTML) {
-    console.log(linkHTML)
     const listTitles = document.querySelector(optTitleListSelector)
     listTitles.innerHTML = listTitles.innerHTML + linkHTML;
 }
@@ -74,3 +73,23 @@ const links = document.querySelectorAll(optTitlesSelector);
 for (let link of links) {
     link.addEventListener('click', titleClickHandler);
 }
+
+
+function generateTags() {
+    const articles = document.querySelectorAll(optArticleSelector)
+    const tagList = document.querySelector('.sidebar .tags');
+    let htmlVar = '';
+
+    for (let article of articles) {
+        const dataTagsArticle = article.getAttribute('data-tags');
+        const dataTagsSplitted = dataTagsArticle.split(' ')
+
+        for (let dataTag of dataTagsSplitted) {
+            // <li><a href="#">design</a> <span>(6)</span></li>
+            htmlVar = '<li><a href="#">' + dataTag + '</a></li>\n';
+            tagList.innerHTML += htmlVar;
+        }
+    }
+}
+
+generateTags();
