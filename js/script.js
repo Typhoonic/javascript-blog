@@ -4,7 +4,9 @@ const optArticleSelector = '.posts article',
   optArticleActiveSelector = '.posts article.active',
   optTitleActiveSelector = '.titles a.active',
   optTitlesSelector = '.titles a',
-  optTitleListSelector = '.titles';
+  optTitleListSelector = '.titles',
+  optPostTagList = '.post-tags .list',
+  optPostTagListItems = '.post-tags .list a';
 
 function removeActiveLinks() {
   const activeLinks = document.querySelectorAll(optTitleActiveSelector);
@@ -79,7 +81,7 @@ generateTitleLinks('');
 
 function fillArticleByTags(article, dataTagsArray) {
   let htmlVar = '';
-  const tagList = article.querySelector('.post-tags .list');
+  const tagList = article.querySelector(optPostTagsList);
   for (let dataTag of dataTagsArray) {
     htmlVar = '<li><a href="tag-' + dataTag + '">' + dataTag + '</a></li>\n';
     tagList.innerHTML += htmlVar;
@@ -122,7 +124,7 @@ function tagClickHandler(event) {
 }
 
 function addClickListenersToTags() {
-  const tagListItems = document.querySelectorAll('.post-tags .list a');
+  const tagListItems = document.querySelectorAll(optPostTagListItems);
 
   for (let tagListItem of tagListItems) {
     tagListItem.addEventListener('click', tagClickHandler);
