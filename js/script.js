@@ -5,7 +5,7 @@ const optArticleSelector = '.posts article',
   optTitleActiveSelector = '.titles a.active',
   optTitlesSelector = '.titles a',
   optTitleListSelector = '.titles',
-  optPostTagList = '.post-tags .list',
+  optPostTagsList = '.post-tags .list',
   optPostTagListItems = '.post-tags .list a';
 
 function removeActiveLinks() {
@@ -109,13 +109,11 @@ function tagClickHandler(event) {
   const tag = href.replaceAll('tag-', '');
 
   const activeArticles = document.querySelectorAll('a.active[href^="#tag-"]');
-
   for (let activeArticle of activeArticles) {
     activeArticle.classList.remove('active');
   }
 
   const hrefLinks = document.querySelectorAll('a[href="' + href + '"]');
-
   for (let hrefLink of hrefLinks) {
     hrefLink.classList.add('active');
   }
@@ -132,3 +130,23 @@ function addClickListenersToTags() {
 }
 
 addClickListenersToTags();
+
+
+/*function generateTags() {
+  const articles = document.querySelectorAll(optArticleSelector);
+  const tagList = document.querySelector('.sidebar .tags');
+  let htmlVar = '';
+
+  for (let article of articles) {
+    const dataTagsArticle = article.getAttribute('data-tags');
+    const dataTagsSplitted = dataTagsArticle.split(' ');
+
+    for (let dataTag of dataTagsSplitted) {
+      // <li><a href="#">design</a> <span>(6)</span></li>
+      htmlVar = '<li><a href="#">' + dataTag + '</a></li>\n';
+      tagList.innerHTML += htmlVar;
+    }
+  }
+}
+
+generateTags();*/
