@@ -66,6 +66,18 @@ body {
   padding: 40px;
   border: 1px solid $color-dark;
   border-radius: 5px;
+
+  .list.authors,
+  .list.tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    p {
+      margin: 0;
+    }
+  }
+
 }
 
 /* Logo */
@@ -124,4 +136,24 @@ body {
   p {
     margin: 0 10px 0 0;
   }
+}
+
+.tag-size-1 {
+  font-size: 60%;
+}
+
+.tag-size-2 {
+  font-size: 70%;
+}
+
+.tag-size-3 {
+  font-size: 80%;
+}
+
+.tag-size-4 {
+  font-size: 90%;
+}
+
+.tag-size-5 {
+  font-size: 100%;
 }
