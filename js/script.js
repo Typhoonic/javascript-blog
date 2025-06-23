@@ -1,5 +1,12 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  articleTag: Handlebars.compile(document.querySelector('#template-tag-article-link').innerHTML),
+  authorTag: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-all-tags').innerHTML)
+};
+
 const optArticleSelector = '.posts article',
   optArticleActiveSelector = '.posts article.active',
   optTitleActiveSelector = '.titles a.active',
@@ -54,7 +61,7 @@ function titleClickHandler(event) {
 // PART 2
 function fillLinkArticleTitle(linkHTML) {
   const listTitles = document.querySelector(optTitleListSelector);
-  listTitles.innerHTML = listTitles.innerHTML + linkHTML;
+  listTitles.innerHTML += linkHTML;
 }
 
 function removeListTitles() {
@@ -70,7 +77,8 @@ function generateTitleLinks(customSelector) {
   for (let article of articles) {
     const articleId = article.id;
     const htmlPostTitle = article.querySelector('h3').innerHTML;
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + htmlPostTitle + '</span></a></li>';
+    const linkHTMLData = { id: articleId, title: htmlPostTitle };
+    const linkHTML = templates.articleLink(linkHTMLData);
     fillLinkArticleTitle(linkHTML);
   }
 
@@ -84,13 +92,13 @@ function generateTitleLinks(customSelector) {
 generateTitleLinks('');
 
 //PART3
-
 function fillArticleByTags(article, dataTagsArray) {
   let htmlVar = '';
   let articleTags = [];
   const tagList = article.querySelector(optPostTagsList);
   for (let dataTag of dataTagsArray) {
-    htmlVar = '<li><a href="tag-' + dataTag + '">' + dataTag + '</a></li> ';
+    const linkHtmlData = { id: 'tag-' + dataTag, dataTag: dataTag };
+    htmlVar = templates.articleTag(linkHtmlData);
     tagList.innerHTML += htmlVar;
     articleTags.push(htmlVar);
   }
@@ -134,15 +142,21 @@ function calculateTagClass(count, params) {
 }
 
 function fillSidebarTags(tagsMap) {
+  const allTagsData = { tags: [] };
   const tagsParams = calculateTagsParams(tagsMap);
-
   const tagList = document.querySelector(optSidebarTags);
 
   for (let tag in tagsMap) {
-    const classNumber = calculateTagClass(tagsMap[tag], tagsParams);
-    const tagLinkHtml = tag.replace('<a ', '<a class="' + optCloudClassPrefix + classNumber + '" ');
-    tagList.innerHTML += tagLinkHtml;
+    const match = tag.match(/<a[^>]*>([^<]+)<\/a>/);
+    const tagValue = match ? match[1] : null;
+
+    allTagsData.tags.push({
+      tag: tagValue,
+      id: 'tag-' + tagValue,
+      class: optCloudClassPrefix + calculateTagClass(tagsMap[tag], tagsParams)
+    });
   }
+  tagList.innerHTML = templates.tagCloudLink(allTagsData);
 }
 
 function generateTags() {
@@ -162,7 +176,6 @@ function generateTags() {
 }
 
 generateTags();
-
 
 function tagClickHandler(event) {
   event.preventDefault();
@@ -194,18 +207,16 @@ function addClickListenersToTags() {
 
 addClickListenersToTags();
 
-
 //PART 4 - authors
-
 function fillSidebarAuthors(authorsMap) {
   const tagsParams = calculateTagsParams(authorsMap);
   const tagList = document.querySelector(optSideBarAuthor);
 
   for (let author in authorsMap) {
     const classNumber = calculateTagClass(authorsMap[author], tagsParams);
-
-    const tagLinkHtml = ' <li><a class="' + optCloudClassPrefix + classNumber + '" href="tag-' + author + '"><span class="author-name">' + author + '</span></a></li>';
-    tagList.innerHTML += tagLinkHtml;
+    const linkHtmlData = { class: optCloudClassPrefix + classNumber, id: 'tag-' + author, author: author };
+    const linkHtml = templates.authorTag(linkHtmlData);
+    tagList.innerHTML += linkHtml;
   }
 }
 
